@@ -1,7 +1,7 @@
 # Creating-Database-with-MYSQL-JOINS
 
 Generating Random Data for the scheme.
-Creating EMPLOYEE,EMPLOYEE DEPARTMENT and OFFICE LOCATIONS Tables and inserting values by using a few MYSQL Commands.
+Creating EMPLOYEE,EMPLOYEE DEPARTMENT,OFFICE LOCATIONS Tables and inserting values by using a few MYSQL Commands.
 
 🔷Using MYSQL Commands and Data types for creating an Employee Table.
 
