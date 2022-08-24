@@ -1,0 +1,100 @@
+CREATE DATABASE IF NOT EXISTS Employees_Department;
+USE Employees_Department;
+CREATE TABLE Employees_Department (name varchar(100),
+    id INT NOT NULL auto_increment,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Employee (name varchar(100),
+    id int not null auto_increment,
+    address varchar(100),
+    Department_id int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (Department_id) 
+    references
+    Employees_Department(id)
+);
+
+INSERT INTO Employees_Department VALUES 
+('Marketing','1'), 
+('Finance','2'), 
+('Human Resources','3'), 
+('Production', '4'), 
+('Development','5'), 
+('Quality Management','6'), 
+('Sales', '7'), 
+('Research', '8'), 
+('Customer Service','9');
+
+INSERT INTO Employee VALUES 
+('sam','1','123 Fake Street, Gosford NSW 5555','2');
+
+INSERT INTO Employee VALUES 
+('White','2','43 Souttar Terrace, Western Australia 6010','9'),
+('Mona','3','91 Maintongoon Road,Victoria 3825','1'),
+('Joey','4','Rua João Romão Andrade 795, Volta Redonda 27278-120','8'),
+('Noha','5','75 rue des Nations Unies, Saint-cloud 92210','3'),
+('Jon','6','Meinekestraße 2, Niedersachsen 37081','4'),
+('John','7','Ruschestrasse 90, Sachsen-Anhalt 39602','9'),
+('Frank','8','Reeperbahn 21, Freistaat Sachsen 08267','6'),
+('Ruby','9','Birkevej 29, Region Midtjylland 8305','5'),
+('shaggy','10','Skolevej 78, Region Sjælland 1870','7'),
+('Priya','11','Meijmaweg 84, Groningen 9955','4'),
+('Omkar','12','Burgemeester Kootlaan 15, Noord-Holland 1421','3'),
+('Bella','13','Rechtuit 61, Drenthe 7913','8'),
+('Elios','14','53 Kogil Street, Warialda 2402','3'),
+('Edward','15','93 Cubbine Road, Ardath 6419','1'),
+('Chandana','16','17 Seiferts Rd, Bangalee 4703','5'),
+('Feroz','17','151 Warren Avenue, Townsend 2463','7'),
+('Dolly','18','43 Woodlands Avenue, Sefton 2162','8'),
+('Charlie','19','31 Weigall Avenue, South Australia 5413','4'),
+('Mable','20','26 Bowden Street, New South Wales 2040','1');
+
+SELECT 
+    Employee.name AS Employee_name,
+    Employees_Department.name AS Department_name
+FROM
+    Employee
+        INNER JOIN
+    Employees_Department ON Employee.Department_id = Employees_Department.id;
+    
+CREATE TABLE IF NOT EXISTS office_locations (
+    address varchar(100),
+    id INT NOT NULL auto_increment,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE Employee
+ADD COLUMN office_id int;
+
+INSERT INTO `office_locations`(address) VALUES('Hyderabad'),
+('NewYork'),
+('Canada'),
+('Goa');
+
+UPDATE Employee 
+SET 
+    office_id = 1
+WHERE
+    id % 2 = 0;
+ 
+UPDATE Employee
+SET office_id=2 
+where id % 3 = 0;
+
+SELECT * from Employee
+LEFT OUTER JOIN office_locations
+ON Employee.office_id = office_locations.id;
+
+SELECT * from Employee
+RIGHT OUTER JOIN office_locations
+ON Employee.office_id = office_locations.id;
+
+SELECT * from Employee
+CROSS JOIN office_locations;
+
+SELECT e1.name as Employee1, e2.name as Employee2 
+from Employee e1 
+inner join Employee e2
+on e1.office_id = e2.office_id
+where e1.Department_id = e2.Department_id;
